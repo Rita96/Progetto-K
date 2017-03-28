@@ -23,9 +23,9 @@ public class DBConnection {
          catch (ClassNotFoundException cnfe) {
              System.out.println("Connessione Fallita!" + cnfe);
          }
-         String url = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11163887";
+         String url = "jdbc:mysql://173.194.255.127:3306/user_projk";
          try {
-             DBConnection = (Connection) DriverManager.getConnection(url, "sql11163887", "dzWTvdjb4c");
+             DBConnection = (Connection) DriverManager.getConnection(url, "codrin", "kodd");
              System.out.println("Database Connesso");       
          }
          catch (SQLException se) {
