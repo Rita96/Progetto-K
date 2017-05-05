@@ -13,8 +13,10 @@ public class Oggetto {
     
     private String nomeoggetto;
     private String descrizione;
+    private int codiceoggetto;
     
-    public Oggetto(String nomeoggetto, String descrizione) {
+    public Oggetto(int codiceoggetto,String nomeoggetto, String descrizione) {
+        this.codiceoggetto=codiceoggetto;
         this.nomeoggetto = nomeoggetto;
         this.descrizione = descrizione;
 }
@@ -26,13 +28,20 @@ public class Oggetto {
     public String getNomeOggetto() {
         return this.nomeoggetto;
     } 
+    public int getCodiceOggetto() {
+        return this.codiceoggetto;
+    }
     
     public void setDescrizione(String descrizione) {
-        descrizione = this.descrizione;
+        this.descrizione = descrizione;
     }
     
     public void setNomeOggetto(String nomeoggetto) {
-        nomeoggetto = this.nomeoggetto;
+        this.nomeoggetto = nomeoggetto;
+    }
+    
+    public void setCodiceOggetto(int codiceoggetto) {
+        this.codiceoggetto = codiceoggetto;
     }
     
     /*
