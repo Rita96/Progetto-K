@@ -22,8 +22,8 @@ public class TestOggetto {
         a = testo.nextLine();
         System.out.println("Inserisci la descrizione dell'oggetto");
         b = testo.nextLine();
-        Oggetto ogg1  = new Oggetto(a, b);
-        System.out.println(ogg1.getNomeOggetto() + " - " + ogg1.getDescrizione());
+        Oggetto ogg1  = new Oggetto(1, a, b);
+        System.out.println(ogg1.getCodiceOggetto() + " - " + ogg1.getNomeOggetto() + " - " + ogg1.getDescrizione());
     }
     
 }
