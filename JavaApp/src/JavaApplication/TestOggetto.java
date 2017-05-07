@@ -4,63 +4,110 @@
  * and open the template in the editor.
  */
 package JavaApplication;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-
-
 
 /**
  *
  * @author toalgrim
  */
+
 public class TestOggetto {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        /*String a,b;
+           
+        int i = 0;
+        int scelta = 0;
+        String a, b, c;
+        boolean verifica = false;
+        Scanner input = new Scanner(System.in);
         
-        System.out.println("Inserisci il nome dell'oggetto");
-        a = testo.nextLine();
-        System.out.println("Inserisci la descrizione dell'oggetto");
-        b = testo.nextLine();
-        Oggetto ogg1  = new Oggetto(1, a, b);
-        System.out.println(ogg1.getCodiceOggetto() + " - " + ogg1.getNomeOggetto() + " - " + ogg1.getDescrizione());*/
-        
-        
-        int i=0;
-        String a,b;
+          /* Creo una lista di oggetti*/
         List <Oggetto> Ogg = new ArrayList<>();
         
-        try {
+        /* Scegli se aggiungere oggetto, trovare un oggetto per una stringa, trovare un oggetto a partire dal codice o uscire dal programma*/
+        do {
+            System.out.println("Che operazione vuoi fare? 1 - Aggiungi oggetto, 2 - Trova oggetto, 3 - Stampa oggetto a partire dal codice 4 - Esci");
+            try { 
+                scelta = input.nextInt();
+                verifica = true;
+                }
+            catch (InputMismatchException e) {
+                    System.out.println("Errore nell'input");
+                    input.next();
+                } while (verifica != true);
             
-            File x = new File("src/resources/oggetti");
-            Scanner testo = new Scanner (x);
-            while (testo.hasNext()){
-                a = testo.nextLine();
-                b = testo.nextLine();
-                Ogg.add(new Oggetto(i, a, b));
-                i++;
-            }
-        }
-        catch (FileNotFoundException e){
-            System.out.println("File non trovato");
-        }
-        
-        Ogg.add(new Oggetto (i, "Ciao", "Salve"));
-        Ogg.add(new Oggetto (1+1, "Console", "Xbox"));
-        
-        
-        System.out.println(Ogg.get(i).getCodiceOggetto() + " ; " + Ogg.get(i).getNomeOggetto() + " ; " + Ogg.get(i).getDescrizione());
-        
-      
-
+            switch(scelta) {
+                
+                case 1:
+                    Oggetto.aggiungiOggetto();
+                    break;
+                    
+                case 2:
+                i = 0;
+                    try {    
+                        File x = new File("src/resources/oggetti");
+                        Scanner testo = new Scanner (x);
+                        while (testo.hasNext()){
+                        a = testo.nextLine();
+                        b = testo.nextLine();
+                        Ogg.add(new Oggetto(i, a, b));
+                        i++;
+                        }
+                    }
+                    catch (FileNotFoundException e) {
+                        System.out.println("File non trovato");
+                    }
+                    Scanner trova = new Scanner(System.in);
+                    System.out.println("Cosa vuoi cercare? Inserisci una stringa:");
+                    c = trova.nextLine();
+                    for (int j = 0; j < i ;j++) {
+                        boolean retval = Ogg.get(j).getNomeOggetto().contains(c);
+                        if (retval == true) {
+                            System.out.println(Ogg.get(j).getCodiceOggetto() + " - " + Ogg.get(j).getNomeOggetto() + " - " + Ogg.get(j).getDescrizione());
+                    }
+                        else {
+                            retval = Ogg.get(j).getDescrizione().contains(c);
+                            if (retval == true) {
+                                System.out.println(Ogg.get(j).getCodiceOggetto() + " - " + Ogg.get(j).getNomeOggetto() + " - " + Ogg.get(j).getDescrizione());
+                            }
+                        }
+                    }
+                    break;
+                    
+                case 3:
+                    System.out.println("Inserisci il codice dell'articolo:");
+                    Scanner code = new Scanner(System.in);
+                    int j = code.nextInt();
+                    i = 0;
+                    try {    
+                        File x = new File("src/resources/oggetti");
+                        Scanner testo = new Scanner (x);
+                        while (testo.hasNext()){
+                            a = testo.nextLine();
+                            b = testo.nextLine();
+                            Ogg.add(new Oggetto(i, a, b));
+                            i++;
+                        }
+                    }
+                    catch (FileNotFoundException e) {
+                        System.out.println("File non trovato");
+                    }
+                    if (j>=i || j<0) {
+                        System.out.println("Codice non trovato");
+                    }
+                    else {
+                        System.out.println(Ogg.get(j).getCodiceOggetto() + " - " + Ogg.get(j).getNomeOggetto() + " - " + Ogg.get(j).getDescrizione());
+                    }
+                    break;
+                    
+                case 4:
+                break;
+            }  
+        } while (scelta!= 4);
     }
-    
 }

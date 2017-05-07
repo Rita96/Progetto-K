@@ -5,10 +5,16 @@
  */
 package JavaApplication;
 
+import java.io.File;
+import java.util.Scanner;
+import java.io.*;
+
+
 /**
  *
  * @author toalgrim
  */
+
 public class Oggetto {
     
     private String nomeoggetto;
@@ -21,7 +27,7 @@ public class Oggetto {
         this.descrizione = descrizione;
 }
     
-    public String getDescrizione() {
+   public String getDescrizione() {
         return this.descrizione;
     }
     
@@ -44,10 +50,27 @@ public class Oggetto {
         this.codiceoggetto = codiceoggetto;
     }
     
-    /*
-    metodo aggiungiOggetto() da completare una volta realizzato il database degli oggetti
-    */
-    public void aggiungiOggetto() {
+    
+    public static void aggiungiOggetto() {
+        
+        /*Provo ad aprire il file contenente oggetti e descrizioni, e una volta aperto aggiungo nuovi oggetti nel file*/
+        String a, b;
+        try
+        {
+            File x = new File("src/resources/oggetti");
+            Scanner testo = new Scanner (System.in);
+            System.out.println("Inserisci il nome dell'oggetto:");
+            a = testo.nextLine();
+            System.out.println("Inserisci la descrizione dell'oggetto");
+            b = testo.nextLine();
+            FileWriter fw = new FileWriter(x,true);         
+            fw.write(a + "\n");                       
+            fw.write(b + "\n");
+            fw.close();
+        }
+        catch(IOException ioe) {
+            System.err.println("IOException: " + ioe.getMessage());
+        }
     }
     
 }
