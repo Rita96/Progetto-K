@@ -21,7 +21,7 @@ public class DBConnection {
              System.out.println("Connesso ");
          }
          catch (ClassNotFoundException cnfe) {
-             System.out.println("Connessione Fallita!" + cnfe);
+             System.out.println("Connessione Fallita" + cnfe);
          }
          String url = "jdbc:mysql://173.194.255.127:3306/user_projk";
          try {
