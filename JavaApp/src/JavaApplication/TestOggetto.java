@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package JavaApplication;
+import com.mysql.jdbc.Connection;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.Scanner;
 public class TestOggetto {
 
     public static void main(String[] args) {
-           
+           Connection conn = new DBConnection().connect();
         int i = 0;
         int scelta = 0;
         String a, b, c;
@@ -31,7 +32,7 @@ public class TestOggetto {
         
         /* Scegli se aggiungere oggetto, trovare un oggetto per una stringa, trovare un oggetto a partire dal codice o uscire dal programma*/
         do {
-            System.out.println("Che operazione vuoi fare? 1 - Aggiungi oggetto, 2 - Trova oggetto, 3 - Stampa oggetto a partire dal codice 4 - Esci");
+            System.out.println("Che operazione vuoi fare?\n 1 - Aggiungi oggetto\n 2 - Trova oggetto\n 3 - Stampa oggetto a partire dal codice\n 4 - Esci");
             try { 
                 scelta = input.nextInt();
                 verifica = true;
@@ -68,12 +69,12 @@ public class TestOggetto {
                     for (int j = 0; j < i ;j++) {
                         boolean retval = Ogg.get(j).getNomeOggetto().contains(c);
                         if (retval == true) {
-                            System.out.println(Ogg.get(j).getCodiceOggetto() + " - " + Ogg.get(j).getNomeOggetto() + " - " + Ogg.get(j).getDescrizione());
+                            System.out.println("\n" + Ogg.get(j).getCodiceOggetto() + " - " + Ogg.get(j).getNomeOggetto() + " - " + Ogg.get(j).getDescrizione()+ "\n");
                     }
                         else {
                             retval = Ogg.get(j).getDescrizione().contains(c);
                             if (retval == true) {
-                                System.out.println(Ogg.get(j).getCodiceOggetto() + " - " + Ogg.get(j).getNomeOggetto() + " - " + Ogg.get(j).getDescrizione());
+                                System.out.println("\n" + Ogg.get(j).getCodiceOggetto() + " - " + Ogg.get(j).getNomeOggetto() + " - " + Ogg.get(j).getDescrizione() + "\n");
                             }
                         }
                     }
@@ -101,7 +102,7 @@ public class TestOggetto {
                         System.out.println("Codice non trovato");
                     }
                     else {
-                        System.out.println(Ogg.get(j).getCodiceOggetto() + " - " + Ogg.get(j).getNomeOggetto() + " - " + Ogg.get(j).getDescrizione());
+                        System.out.println("\n" + Ogg.get(j).getCodiceOggetto() + " - " + Ogg.get(j).getNomeOggetto() + " - " + Ogg.get(j).getDescrizione()+ "\n");
                     }
                     break;
                     

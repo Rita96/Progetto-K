@@ -5,6 +5,7 @@
  */
 package JavaApplication;
 
+import com.mysql.jdbc.Connection;
 import java.io.File;
 import java.util.Scanner;
 import java.io.*;
@@ -16,61 +17,59 @@ import java.io.*;
  */
 
 public class Oggetto {
+    Connection conn; 
     
-    private String nomeoggetto;
-    private String descrizione;
-    private int codiceoggetto;
+//    private String NomeOggetto;
+//    private String Descrizione;
+    private int idOggetto;
     
-    public Oggetto(int codiceoggetto,String nomeoggetto, String descrizione) {
-        this.codiceoggetto=codiceoggetto;
-        this.nomeoggetto = nomeoggetto;
-        this.descrizione = descrizione;
+    public Oggetto(int IDoggetto) {
+        this.conn = new DBConnection().connect();
+        this.idOggetto=IDoggetto;
+//        this.NomeOggetto = nomeoggetto;
+//        this.Descrizione = descrizione;
 }
-    
-   public String getDescrizione() {
-        return this.descrizione;
+    public int getidOggetto() {
+        return this.idOggetto;
     }
     
-    public String getNomeOggetto() {
-        return this.nomeoggetto;
-    } 
-    public int getCodiceOggetto() {
-        return this.codiceoggetto;
-    }
+   
+   
     
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
-    
-    public void setNomeOggetto(String nomeoggetto) {
-        this.nomeoggetto = nomeoggetto;
-    }
-    
-    public void setCodiceOggetto(int codiceoggetto) {
-        this.codiceoggetto = codiceoggetto;
+    public void setidOggetto(int IDoggetto) {
+        this.idOggetto = IDoggetto;
     }
     
     
     public static void aggiungiOggetto() {
         
-        /*Provo ad aprire il file contenente oggetti e descrizioni, e una volta aperto aggiungo nuovi oggetti nel file*/
-        String a, b;
-        try
-        {
-            File x = new File("src/resources/oggetti");
-            Scanner testo = new Scanner (System.in);
-            System.out.println("Inserisci il nome dell'oggetto:");
-            a = testo.nextLine();
-            System.out.println("Inserisci la descrizione dell'oggetto");
-            b = testo.nextLine();
-            FileWriter fw = new FileWriter(x,true);         
-            fw.write(a + "\n");                       
-            fw.write(b + "\n");
-            fw.close();
+        
+        String sql = "insert into Oggetti (NomeOggetto, Descrizione, DataInizioAsta, offerta)?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(2, NomeOggettoField.getText());
+            ps.setString(3, DescrizioneField.getText());
+            ps.setString(4, DataInizioAstaField.getText());
+            ps.setString(5, offertaField.getText());
+            
+            
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                this.dispose();
+                MainMenu mm = new MainMenu ();
+                mm.show();
+               
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Username & Password Invalid");
+                
+            }
         }
-        catch(IOException ioe) {
-            System.err.println("IOException: " + ioe.getMessage());
+        catch (Exception e) {
+            
         }
+    }                                           
+
     }
     
 }
