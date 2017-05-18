@@ -65,17 +65,23 @@ public class Oggetto  {
         String b = testo.nextLine();
         System.out.println("Inserisci offerta minima");
         int f = testo.nextInt();
+        System.out.println("Inserisci data inizio asta")
         
         // Inserisco nel database i dati ricevuti precedentemente da tastiera
-        String query = " insert into Oggetti (IDoggetto, NomeOggetto, Descrizione, MaxOfferta)" + " values (?, ?, ?, ?)";
+        String query = " insert into Oggetti (IDoggetto, NomeOggetto, Descrizione, MaxOfferta, DataInizio)" + " values (?, ?, ?, ?, ?)";
         preparedStmt = conn.prepareStatement(query);
         preparedStmt.setInt (1, i);
         preparedStmt.setString (2, a);
         preparedStmt.setString   (3, b);
         preparedStmt.setInt(4, f);
+        preparedStmt.setDate(5, date);
         preparedStmt.execute();
         conn.close();
         
+//        String lastCrawlDate = "2014-01-28"
+// PreparedStatement p = con.prepareStatement("insert into JsonData (last_crawl_date) values(?))");
+//
+// p.setDate(1, Date.valueOf(lastCrawlDate));
         
           
 ////        
