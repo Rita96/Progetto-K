@@ -6,9 +6,9 @@
 package JavaApplication;
 
 import com.mysql.jdbc.Connection;
-import java.io.File;
 import java.util.Scanner;
-import java.io.*;
+import java.sql.*;
+import java.util.Date;
 
 
 /**
@@ -16,60 +16,98 @@ import java.io.*;
  * @author toalgrim
  */
 
-public class Oggetto {
-    Connection conn; 
+public class Oggetto  {
     
-//    private String NomeOggetto;
-//    private String Descrizione;
     private int idOggetto;
+    static Connection conn; 
+    static Statement stOgg;
+    static PreparedStatement preparedStmt;
     
-    public Oggetto(int IDoggetto) {
-        this.conn = new DBConnection().connect();
-        this.idOggetto=IDoggetto;
-//        this.NomeOggetto = nomeoggetto;
-//        this.Descrizione = descrizione;
+     
+    /* Costruttore della classe oggetto, una volta chiamato prova ad aprire una connessione con il database*/
+    
+    public Oggetto() throws SQLException {
+        System.out.println("Provo a leggere il database...");
+        try {
+                Oggetto.conn = new DBConnection().connect();
+                Oggetto.stOgg = conn.createStatement();
+        }
+        catch (Exception exc)  { 
+            System.out.println("Errore nella lettura del database");
+        }
 }
+    /*Metodi Get e Set per l'Id dell'oggetto*/
+    
     public int getidOggetto() {
         return this.idOggetto;
     }
-    
-   
-   
-    
     public void setidOggetto(int IDoggetto) {
         this.idOggetto = IDoggetto;
     }
     
-    
-    public static void aggiungiOggetto() {
+    /*Metodo per inserire un nuovo oggetto all'interno del database*/
+    public static void aggiungiOggetto() throws SQLException {
+        
+        // Conto il numero di insert che il database ha disponibili per creare il nuovo codice oggetto
+        ResultSet rs = stOgg.executeQuery ("SELECT * FROM Oggetti");
+        int i = 0;
+        while (rs.next()) {
+           i++;
+        }
+        System.out.println(i);
+        i += 1001;
+        
+        // Ricevo da input il nome, la descrizione e l'offerta minima
+        Scanner testo = new Scanner (System.in);
+        System.out.println("Inserisci il nome dell'oggetto:");
+        String a = testo.nextLine();
+        System.out.println("Inserisci la descrizione dell'oggetto");
+        String b = testo.nextLine();
+        System.out.println("Inserisci offerta minima");
+        int f = testo.nextInt();
+        
+        // Inserisco nel database i dati ricevuti precedentemente da tastiera
+        String query = " insert into Oggetti (IDoggetto, NomeOggetto, Descrizione, MaxOfferta)" + " values (?, ?, ?, ?)";
+        preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setInt (1, i);
+        preparedStmt.setString (2, a);
+        preparedStmt.setString   (3, b);
+        preparedStmt.setInt(4, f);
+        preparedStmt.execute();
+        conn.close();
         
         
-        String sql = "insert into Oggetti (NomeOggetto, Descrizione, DataInizioAsta, offerta)?";
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(2, NomeOggettoField.getText());
-            ps.setString(3, DescrizioneField.getText());
-            ps.setString(4, DataInizioAstaField.getText());
-            ps.setString(5, offertaField.getText());
-            
-            
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                this.dispose();
-                MainMenu mm = new MainMenu ();
-                mm.show();
-               
-            }
-            else {
-                JOptionPane.showMessageDialog(null, "Username & Password Invalid");
-                
-            }
-        }
-        catch (Exception e) {
-            
-        }
-    }                                           
-
-    }
+          
+////        
+//        
+//        
+//        String sql = "insert into Oggetti (NomeOggetto, Descrizione, DataInizioAsta, offerta)?";
+//        try {
+//            PreparedStatement ps = conn.prepareStatement(sql);
+//            ps.setString(2, NomeOggettoField.getText());
+//            ps.setString(3, DescrizioneField.getText());
+//            ps.setString(4, DataInizioAstaField.getText());
+//            ps.setString(5, offertaField.getText());
+//            
+//            
+//            ResultSet rs = ps.executeQuery();
+//            if (rs.next()) {
+//                this.dispose();
+//                MainMenu mm = new MainMenu ();
+//                mm.show();
+//               
+//            }
+//            else {
+//                JOptionPane.showMessageDialog(null, "Username & Password Invalid");
+//                
+//            }
+//        }
+//        catch (Exception e) {
+//            
+//        }
+//    }                                           
+//
+//    }
     
+}
 }
