@@ -10,6 +10,7 @@ import java.util.Scanner;
 import java.sql.*;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.sql.Timestamp
 
 
 /**
@@ -60,6 +61,7 @@ public class Oggetto  {
         
         // Ricevo da input il nome, la descrizione e l'offerta minima
         java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
+        java.sql.Time sqlTime = new java.sql.Time(System.currentTimeMillis());
         Scanner testo = new Scanner (System.in);
         System.out.println("Inserisci il nome dell'oggetto:");
         String a = testo.nextLine();
@@ -77,16 +79,29 @@ public class Oggetto  {
         catch (Exception ex) {
             System.out.println("Errore inserimento data");
         }
+        testo.nextLine();
+        try {
+                System.out.println("Inserisci orario inizio asta (HH:MM:SS)");
+                String d = testo.nextLine();
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+                Date time = null;
+                time = sdf.parse(d);
+                sqlTime = new java.sql.Time(time.getTime());
+        }
+        catch (Exception ex) {
+            System.out.println("Errore inserimento data");
+        }
                 
         
         // Inserisco nel database i dati ricevuti precedentemente da tastiera
-        String query = " insert into Oggetti (IDoggetto, NomeOggetto, Descrizione, MaxOfferta, DataInizio)" + " values (?, ?, ?, ?, ?)";
+        String query = " insert into Oggetti (IDoggetto, NomeOggetto, Descrizione, MaxOfferta, DataInizio, OraInizioAsta)" + " values (?, ?, ?, ?, ?, ?)";
         preparedStmt = conn.prepareStatement(query);
         preparedStmt.setInt (1, i);
         preparedStmt.setString (2, a);
         preparedStmt.setString   (3, b);
         preparedStmt.setInt(4, f);
         preparedStmt.setDate(5, sqlDate);
+        preparedStmt.setTime(6, sqlTime);
         preparedStmt.execute();
         conn.close();
         
