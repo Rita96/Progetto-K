@@ -133,6 +133,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="UserLoginField">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="UserLoginFieldActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JPasswordField" name="PassLoginField">
         </Component>
@@ -248,6 +251,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="nomeRegField">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nomeRegFieldActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="UserRegField">
         </Component>
@@ -257,6 +263,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Registrati"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RegistratiButtomActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

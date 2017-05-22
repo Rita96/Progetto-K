@@ -5,9 +5,11 @@
  */
 package JavaApplication;
 
+import static JavaApplication.Register.st0gg;
 import com.mysql.jdbc.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -76,6 +78,12 @@ public class Login extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel2.setText("Password");
 
+        UserLoginField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserLoginFieldActionPerformed(evt);
+            }
+        });
+
         LoginLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         LoginLabel.setText("Login Page");
 
@@ -129,7 +137,18 @@ public class Login extends javax.swing.JDialog {
 
         jLabel7.setText("Nome:");
 
+        nomeRegField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nomeRegFieldActionPerformed(evt);
+            }
+        });
+
         RegistratiButtom.setText("Registrati");
+        RegistratiButtom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistratiButtomActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout PannelloRegistratiLayout = new javax.swing.GroupLayout(PannelloRegistrati);
         PannelloRegistrati.setLayout(PannelloRegistratiLayout);
@@ -237,6 +256,41 @@ public class Login extends javax.swing.JDialog {
         System.exit(0);
         
     }//GEN-LAST:event_ExitButtomActionPerformed
+
+    private void UserLoginFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserLoginFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UserLoginFieldActionPerformed
+
+    private void nomeRegFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeRegFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomeRegFieldActionPerformed
+
+    public String getNewID() throws SQLException{
+        ResultSet rs =(new DBConnection().connect()).createStatement().executeQuery("SELECT * FROM user");
+        int i = 0;
+        while (rs.next()){
+            i++;
+        }
+        return Integer.toString(i);
+    } 
+    
+    private void RegistratiButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistratiButtomActionPerformed
+       String queryReg = "insert into user ( IDuser, nome, username, password)" + "values(?, ?, ?, ?)";
+            try {
+           PreparedStatement ps = conn.prepareStatement(queryReg);
+           ps.setString(1, getNewID());
+           ps.setString(2, nomeRegField.getText());
+           ps.setString(3, UserRegField.getText());
+           ps.setString(4, PassRegField.getText());
+           int rs= ps.executeUpdate();
+       }
+            catch (Exception e) {
+            System.out.println("Errore di connessione...");
+            e.printStackTrace();
+            }
+        
+        
+    }//GEN-LAST:event_RegistratiButtomActionPerformed
 
     /**
      * @param args the command line arguments
