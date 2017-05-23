@@ -282,6 +282,7 @@ public class Login extends javax.swing.JDialog {
            ps.setString(2, nomeRegField.getText());
            ps.setString(3, UserRegField.getText());
            ps.setString(4, PassRegField.getText());
+           
            int rs= ps.executeUpdate();
        }
             catch (Exception e) {
