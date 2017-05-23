@@ -5,6 +5,12 @@
  */
 package JavaApplication;
 
+import com.mysql.jdbc.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  *
  * @author andre
@@ -41,5 +47,20 @@ public class DescrizioneOggetto {
         this.prezzoIniziale = prezzoIniziale;
     }
     
+    public static void getDescrizione(int codice) throws SQLException { 
+        
+    Connection con = new DBConnection().connect();
+
+    Statement st = con.createStatement();
+    String sql = ("SELECT * FROM Oggetti WHERE IDoggetto = '" + codice + "'");
+    ResultSet rs = st.executeQuery(sql);
+    if(rs.next()) { 
+        String str1 = rs.getString("Descrizione");
+    System.out.println(str1);
+}
+
+con.close();
+        
+    }
     
 }
