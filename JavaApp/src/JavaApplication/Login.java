@@ -5,12 +5,12 @@
  */
 package JavaApplication;
 
-import static JavaApplication.Register.st0gg;
 import com.mysql.jdbc.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import static JavaApplication.Register.stOgg;
 
 /**
  *
@@ -265,6 +265,8 @@ public class Login extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeRegFieldActionPerformed
 
+      // Metodo che controlla l'ultimo numero Id dell'user e restituisce un numero +1
+    
     public String getNewID() throws SQLException{
         ResultSet rs =(new DBConnection().connect()).createStatement().executeQuery("SELECT * FROM user");
         int i = 0;
@@ -284,6 +286,7 @@ public class Login extends javax.swing.JDialog {
            ps.setString(4, PassRegField.getText());
            
            int rs= ps.executeUpdate();
+           JOptionPane.showMessageDialog(null, "OKay, Ti sei Registrato\nOra puoi Loggarti.");
        }
             catch (Exception e) {
             System.out.println("Errore di connessione...");

@@ -17,14 +17,14 @@ public class Register {
     
     private int idUser;
     static Connection conn;
-    static Statement st0gg;
+    static Statement stOgg;     
     static PreparedStatement preparedStmt;
     
     public Register() throws SQLException {
         System.out.println("Mi collego al database...");
         try{
             Register.conn = new DBConnection().connect();
-            Register.st0gg = conn.createStatement();
+            Register.stOgg = conn.createStatement();
         }
         catch (Exception exc) {
             System.out.println("Errore di connessione...");
@@ -41,16 +41,16 @@ public class Register {
     
     public static void aggiungiUtente() throws SQLException {
         
-        ResultSet rs = st0gg.executeQuery("SELECT * FROM user");
+        ResultSet rs = stOgg.executeQuery("SELECT * FROM user");
         int i = 0;
         while (rs.next()){
             i++;
         }
         System.out.print(i);
-        i += 0000;
+        i += 0;
         
         Scanner tastiera = new Scanner(System.in);
-        System.out.println("Inserisci il tuo nome:");
+        System.out.println("\nInserisci il tuo nome:");
         String nomeRegister = tastiera.nextLine();
         System.out.println("Inserisci il tuo username:");
         String userRegister = tastiera.nextLine();

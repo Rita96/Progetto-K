@@ -63,16 +63,16 @@ public class Oggetto  {
         java.sql.Time sqlTime = new java.sql.Time(System.currentTimeMillis());
         Scanner testo = new Scanner (System.in);
         System.out.println("Inserisci il nome dell'oggetto:");
-        String a = testo.nextLine();
+        String nomeOggetto = testo.nextLine();
         System.out.println("Inserisci la descrizione dell'oggetto");
-        String b = testo.nextLine();
-        System.out.println("Inserisci offerta minima");
-        int f = testo.nextInt();
+        String descrizioneOggetto = testo.nextLine();
+        System.out.println("Inserisci offerta di partenza");
+        int offertaPartenza = testo.nextInt();
         testo.nextLine();
         try {
                 System.out.println("Inserisci data inizio asta (AAAA-MM-GG)");
-                String c = testo.nextLine();
-                Date utilDate = new SimpleDateFormat("yyyy-MM-dd").parse(c); 
+                String dataInizioAsta = testo.nextLine();
+                Date utilDate = new SimpleDateFormat("yyyy-MM-dd").parse(dataInizioAsta); 
                 sqlDate = new java.sql.Date(utilDate.getTime());
         }
         catch (Exception ex) {
@@ -81,10 +81,10 @@ public class Oggetto  {
         testo.nextLine();
         try {
                 System.out.println("Inserisci orario inizio asta (HH:MM:SS)");
-                String d = testo.nextLine();
+                String oraInizioAsta = testo.nextLine();
                 SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
                 Date time = null;
-                time = sdf.parse(d);
+                time = sdf.parse(oraInizioAsta);
                 sqlTime = new java.sql.Time(time.getTime());
         }
         catch (Exception ex) {
@@ -96,9 +96,9 @@ public class Oggetto  {
         String query = " insert into Oggetti (IDoggetto, NomeOggetto, Descrizione, MaxOfferta, DataInizio, OraInizioAsta)" + " values (?, ?, ?, ?, ?, ?)";
         preparedStmt = conn.prepareStatement(query);
         preparedStmt.setInt (1, i);
-        preparedStmt.setString (2, a);
-        preparedStmt.setString   (3, b);
-        preparedStmt.setInt(4, f);
+        preparedStmt.setString (2, nomeOggetto);
+        preparedStmt.setString   (3, descrizioneOggetto);
+        preparedStmt.setInt(4, offertaPartenza);
         preparedStmt.setDate(5, sqlDate);
         preparedStmt.setTime(6, sqlTime);
         preparedStmt.execute();
