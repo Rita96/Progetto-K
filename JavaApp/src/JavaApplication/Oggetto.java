@@ -48,7 +48,6 @@ public class Oggetto  {
     /*Metodo per inserire un nuovo oggetto all'interno del database*/
     public static void aggiungiOggetto(int i, int prezzoAsta, String nomeOgg, String descrizioneOgg, Date date, String time) throws SQLException {
                
-        
         java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
         java.sql.Time sqlTime = new java.sql.Time(System.currentTimeMillis());
         
