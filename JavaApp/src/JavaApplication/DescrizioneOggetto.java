@@ -6,7 +6,6 @@
 package JavaApplication;
 
 import com.mysql.jdbc.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,51 +15,75 @@ import java.sql.Statement;
  * @author andre
  */
 public class DescrizioneOggetto {
-    private int idOggetto, quantita, prezzoIniziale;
+    /* variabili */
+    private int idOggetto, maxOfferta, idUser, oggettoAttivo;
+    private String nomeOggetto, descrizioneOggetto;
     
-    public DescrizioneOggetto(int idOggetto , int quantita , int prezzoIniziale) {
-        this.idOggetto = idOggetto ;
-        this.quantita = quantita;
-        this.prezzoIniziale = prezzoIniziale;
+    /* Costruttore pubblico */
+    public DescrizioneOggetto() {
 }
-    
-    public int getidOggetto() {
-        return this.idOggetto;
+    /* Metodi getter e setter */
+    public int getIdOggetto() {
+        return idOggetto;
     }
     
-    public int getquantita() {
-        return this.quantita;
+    public int getMaxofferta() {
+        return maxOfferta;
+    }
+    
+    public int getidUser() {
+        return idUser;
+    }
+    
+    public int getOggettoAttivo() {
+        return oggettoAttivo;
+    }
+    
+    public String getNomeOggetto() {
+        return nomeOggetto;
+    }
+    
+    public String getDescrizioneOggetto() {
+        return descrizioneOggetto;
     } 
-    public int getprezzoIniziale() {
-        return this.prezzoIniziale;
+    
+    public void setIdOggetto(int idOggetto) {
+        this.idOggetto = idOggetto;
     }
     
-    public void setidOggetto(int idOggetto) {
-        this.idOggetto = idOggetto ;
+    public void setMaxOfferta(int maxOfferta) {
+        this.maxOfferta = maxOfferta;
     }
     
-    public void setquantita(int quantita) {
-        this.quantita = quantita;
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
     
-    public void setprezzoIniziale (int prezzoIniziale) {
-        this.prezzoIniziale = prezzoIniziale;
+    public void setOggettoAttivo(int oggettoAttivo) {
+        this.oggettoAttivo = oggettoAttivo;
+    }
+    
+    public void setNomeOggetto(String nomeOggetto) {
+        this.nomeOggetto = nomeOggetto;
+    }
+    
+    public void setDescrizioneOggetto(String descrizioneOggetto) {
+        this.descrizioneOggetto = descrizioneOggetto;
     }
     
     public static void getDescrizione(int codice) throws SQLException { 
         
     Connection con = new DBConnection().connect();
-
     Statement st = con.createStatement();
     String sql = ("SELECT * FROM Oggetti WHERE IDoggetto = '" + codice + "'");
     ResultSet rs = st.executeQuery(sql);
+    
     if(rs.next()) { 
         String str1 = rs.getString("Descrizione");
-    System.out.println(str1);
-}
-
-con.close();
-        
+        System.out.println(str1);
     }
     
+    con.close();
+    
+    }
 }
