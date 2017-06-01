@@ -16,7 +16,7 @@ public class TestOggetto {
     public static void main(String[] args) throws SQLException{
         
         Oggetto ogg1 = new Oggetto();
-        DescrizioneOggetto.getDescrizione(1001);
+        DescrizioneOggetto.getNomeOggetto(1001);
 //        Oggetto.aggiungiOggetto();
     }
 }

@@ -86,4 +86,71 @@ public class DescrizioneOggetto {
     con.close();
     
     }
+
+    public static void getNomeOggetto(int codice) throws SQLException { 
+        
+    Connection con = new DBConnection().connect();
+    Statement st = con.createStatement();
+    String sql = ("SELECT * FROM Oggetti WHERE IDoggetto = '" + codice + "'");
+    ResultSet rs = st.executeQuery(sql);
+    
+    if(rs.next()) { 
+        String str1 = rs.getString("NomeOggetto");
+        System.out.println(str1);
+    }
+    
+    con.close();
+    
+    }
+
+    public static void getOggettoAttivo(int codice) throws SQLException { 
+        
+    Connection con = new DBConnection().connect();
+    Statement st = con.createStatement();
+    String sql = ("SELECT * FROM Oggetti WHERE IDoggetto = '" + codice + "'");
+    ResultSet rs = st.executeQuery(sql);
+    
+    if(rs.next()) { 
+        String str1 = rs.getString("AstaAttiva");
+        System.out.println(str1);
+    }
+    
+    con.close();
+    
+    }
+
+    public static void getidUser(int codice) throws SQLException { 
+        
+    Connection con = new DBConnection().connect();
+    Statement st = con.createStatement();
+    String sql = ("SELECT * FROM Oggetti WHERE IDoggetto = '" + codice + "'");
+    ResultSet rs = st.executeQuery(sql);
+    
+    if(rs.next()) { 
+        String str1 = rs.getString("IDuser");
+        System.out.println(str1);
+    }
+    
+    con.close();
+    
+    }
+
+    public static void getMaxofferta(int codice) throws SQLException { 
+        
+    Connection con = new DBConnection().connect();
+    Statement st = con.createStatement();
+    String sql = ("SELECT * FROM Oggetti WHERE IDoggetto = '" + codice + "'");
+    ResultSet rs = st.executeQuery(sql);
+    
+    if(rs.next()) { 
+        String str1 = rs.getString("MAXofferta");
+        System.out.println(str1);
+    }
+    
+    con.close();
+    
+    }
+
+
+
 }
