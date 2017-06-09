@@ -17,35 +17,15 @@ import java.sql.Statement;
 public class DescrizioneOggetto {
     /* variabili */
     private int idOggetto, maxOfferta, idUser, oggettoAttivo;
-    private String nomeOggetto, descrizioneOggetto;
+    private String nomeOggetto, descrizioneOggetto, dataInizioAsta, oraInizioAsta;
+
+    
     
     /* Costruttore pubblico */
     public DescrizioneOggetto() {
 }
     /* Metodi getter e setter */
-    public int getIdOggetto() {
-        return idOggetto;
-    }
-    
-    public int getMaxofferta() {
-        return maxOfferta;
-    }
-    
-    public int getidUser() {
-        return idUser;
-    }
-    
-    public int getOggettoAttivo() {
-        return oggettoAttivo;
-    }
-    
-    public String getNomeOggetto() {
-        return nomeOggetto;
-    }
-    
-    public String getDescrizioneOggetto() {
-        return descrizioneOggetto;
-    } 
+     
     
     public void setIdOggetto(int idOggetto) {
         this.idOggetto = idOggetto;
@@ -71,84 +51,97 @@ public class DescrizioneOggetto {
         this.descrizioneOggetto = descrizioneOggetto;
     }
     
-    public static void getDescrizione(int codice) throws SQLException { 
+    public static String getDescrizione(int codice) throws SQLException { 
         
-    Connection con = new DBConnection().connect();
-    Statement st = con.createStatement();
+    String str1 = null;
     String sql = ("SELECT * FROM Oggetti WHERE IDoggetto = '" + codice + "'");
-    ResultSet rs = st.executeQuery(sql);
+    ResultSet rs = Oggetto.stOgg.executeQuery(sql);
     
     if(rs.next()) { 
-        String str1 = rs.getString("Descrizione");
-        System.out.println(str1);
+        str1 = rs.getString("Descrizione");
     }
-    
-    con.close();
+
+    return str1;
     
     }
 
-    public static void getNomeOggetto(int codice) throws SQLException { 
+    public static String getNomeOggetto(int codice) throws SQLException { 
         
-    Connection con = new DBConnection().connect();
-    Statement st = con.createStatement();
+    String str1 = null;
     String sql = ("SELECT * FROM Oggetti WHERE IDoggetto = '" + codice + "'");
-    ResultSet rs = st.executeQuery(sql);
+    ResultSet rs = Oggetto.stOgg.executeQuery(sql);
     
     if(rs.next()) { 
-        String str1 = rs.getString("NomeOggetto");
-        System.out.println(str1);
+        str1 = rs.getString("NomeOggetto");
     }
     
-    con.close();
+    return str1;
     
     }
 
-    public static void getOggettoAttivo(int codice) throws SQLException { 
+    public static String getOggettoAttivo(int codice) throws SQLException { 
         
-    Connection con = new DBConnection().connect();
-    Statement st = con.createStatement();
     String sql = ("SELECT * FROM Oggetti WHERE IDoggetto = '" + codice + "'");
-    ResultSet rs = st.executeQuery(sql);
+    ResultSet rs = Oggetto.stOgg.executeQuery(sql);
+    String str1 = null;
     
     if(rs.next()) { 
-        String str1 = rs.getString("AstaAttiva");
+        str1 = rs.getString("AstaAttiva");
         System.out.println(str1);
     }
     
-    con.close();
+    return str1;
     
     }
 
-    public static void getidUser(int codice) throws SQLException { 
-        
-    Connection con = new DBConnection().connect();
-    Statement st = con.createStatement();
+    public static String getidUser(int codice) throws SQLException { 
+    
     String sql = ("SELECT * FROM Oggetti WHERE IDoggetto = '" + codice + "'");
-    ResultSet rs = st.executeQuery(sql);
-    
+    ResultSet rs = Oggetto.stOgg.executeQuery(sql);
+    String str1 = null;
     if(rs.next()) { 
-        String str1 = rs.getString("IDuser");
-        System.out.println(str1);
+        str1 = rs.getString("IDuser");
     }
-    
-    con.close();
+    return str1;
+
     
     }
 
-    public static void getMaxofferta(int codice) throws SQLException { 
-        
-    Connection con = new DBConnection().connect();
-    Statement st = con.createStatement();
+    public static String getMaxofferta(int codice) throws SQLException { 
+    
     String sql = ("SELECT * FROM Oggetti WHERE IDoggetto = '" + codice + "'");
-    ResultSet rs = st.executeQuery(sql);
+    ResultSet rs = Oggetto.stOgg.executeQuery(sql);
+    String str1 = null;
     
     if(rs.next()) { 
-        String str1 = rs.getString("MAXofferta");
-        System.out.println(str1);
+        str1 = rs.getString("MAXofferta");
+    }
+    return str1;
     }
     
-    con.close();
+    public static String getDataInizioAsta (int codice) throws SQLException {
+        
+        String sql = ("SELECT * FROM Oggetti WHERE IDoggetto = '" + codice + "'");
+        ResultSet rs = Oggetto.stOgg.executeQuery(sql);
+        String str1 = null;
+        
+        if(rs.next()) { 
+        str1 = rs.getString("DataInizio");
+        }
+        
+    return str1;
+    }
     
+    public static String getOraInizioAsta (int codice) throws SQLException {
+        String sql = ("SELECT * FROM Oggetti WHERE IDoggetto = '" + codice + "'");
+        ResultSet rs = Oggetto.stOgg.executeQuery(sql);
+        String str1 = null;
+        
+        if(rs.next()) { 
+        str1 = rs.getString("OraInizioAsta");
+        }
+        
+    return str1;
     }
 
 

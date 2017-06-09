@@ -26,7 +26,7 @@ public class Oggetto  {
      
     /* Costruttore della classe oggetto, una volta chiamato prova ad aprire una connessione con il database*/
     
-    public Oggetto() throws SQLException {
+    public Oggetto(int idOggetto) throws SQLException {
         System.out.println("Provo a leggere il database...");
         try {
                 Oggetto.conn = new DBConnection().connect();
@@ -35,6 +35,7 @@ public class Oggetto  {
         catch (Exception exc)  { 
             System.out.println("Errore nella lettura del database");
         }
+        this.idOggetto = idOggetto;
 }
     /*Metodi Get e Set per l'Id dell'oggetto*/
     
@@ -86,8 +87,9 @@ public class Oggetto  {
     /* Conto il numero di insert che il database ha disponibili per creare il nuovo codice oggetto */
     public static int trovaID() throws SQLException {
         
+        /*da togliere il collegamento al database a programma concluso */
         // Provo a collegarmi al database
-        try {
+       try {
                 Oggetto.conn = new DBConnection().connect();
                 Oggetto.stOgg = conn.createStatement();
         }
