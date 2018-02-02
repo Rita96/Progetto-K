@@ -18,7 +18,6 @@ public class DBConnection {
      public Connection connect() {
          try {
              Class.forName("com.mysql.jdbc.Driver");
-             System.out.println("Connesso ");
          }
          catch (ClassNotFoundException cnfe) {
              System.out.println("Connessione Fallita" + cnfe);
@@ -29,7 +28,7 @@ public class DBConnection {
              System.out.println("Database Connesso");       
          }
          catch (SQLException se) {
-             System.out.println("No Database" + se);
+             System.out.println("Errore nell'accesso al database");
          }
          return DBConnection;
      } 

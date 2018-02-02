@@ -16,14 +16,14 @@ import static JavaApplication.Register.stOgg;
  *
  * @author codrin
  */
-public class LoginGui extends javax.swing.JDialog {
+public class LoginGuiTest2 extends javax.swing.JDialog {
     Connection conn = new DBConnection() .connect(); 
 
     /**
      * Creates new form Login
      * @param parent
      */
-    public LoginGui(java.awt.Frame parent, boolean modal) {
+    public LoginGuiTest2(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(this);
@@ -286,7 +286,7 @@ public class LoginGui extends javax.swing.JDialog {
            ps.setString(4, PassRegField.getText());
            
            int rs= ps.executeUpdate();
-           JOptionPane.showMessageDialog(null, "OKay, Ti sei Registrato\nOra puoi Loggarti.");
+           JOptionPane.showMessageDialog(null, "Ti sei Registrato");
        }
             catch (Exception e) {
             System.out.println("Errore di connessione...");
@@ -313,21 +313,23 @@ public class LoginGui extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginGuiTest2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginGuiTest2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginGuiTest2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginGuiTest2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               LoginGui dialog = new LoginGui (new javax.swing.JFrame(), true);
+               LoginGuiTest2 dialog = new LoginGuiTest2 (new javax.swing.JFrame(), true);
                dialog.addWindowFocusListener(new java.awt.event.WindowAdapter() {
                    
                    public void windowsclosing(java.awt.event.WindowEvent e) {

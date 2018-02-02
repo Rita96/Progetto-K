@@ -16,7 +16,7 @@ public class CasaDaste {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        new LoginGui(null, true).show();  
+        new LoginGuiTest2(null, true).show();  
     }
     
 }

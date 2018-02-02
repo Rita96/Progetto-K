@@ -16,6 +16,7 @@ public class LoginTest {
      */
     public static void main(String[] args) {
         Login l1 = new Login("ciao", "no");
+        Login l2 = new Login("bella", "bella");
     }
     
 }
