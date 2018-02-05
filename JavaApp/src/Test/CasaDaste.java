@@ -1,22 +1,24 @@
-/*
+  /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package JavaApplication;
+package Test;
+
+import Gui.LoginGuiTest2;
 
 /**
  *
- * @author cl411381
+ * @author codrin
  */
-public class LoginTest {
+public class CasaDaste {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Login l1 = new Login("ciao", "no");
-        Login l2 = new Login("bella", "bella");
+        // TODO code application logic here
+        new LoginGuiTest2(null, true).show();  
     }
     
 }

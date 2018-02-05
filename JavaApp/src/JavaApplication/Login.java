@@ -5,12 +5,10 @@
  */
 package JavaApplication;
 
-import static JavaApplication.Oggetto.preparedStmt;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import javax.swing.JOptionPane;
 import com.mysql.jdbc.Connection;
-import java.sql.Statement;
+
 
 
 /**
@@ -19,46 +17,38 @@ import java.sql.Statement;
  */
 public class Login {
     
-    private final static int NUMERO_UTENTE_BASE = 1000;
-    Connection db;
+    //private final static int NUMERO_UTENTE_BASE = 1000;
+    private Connection db;
     private int codiceUtente;
     private int tipoUtente;
     private boolean registrazioneEffettuata = false;
+    private String nomeUtente;
+    private String cognome;
     
     
-    public Login(String nomeUtente, String password) {
+    
+    
+    public Login(String nomeUtente, String password, Connection db) {
+        
+        this.db = db;
         int n[];
-        try {
-            db = new DBConnection().connect();
-            if (verificaUtentePassword(nomeUtente, password)) {
-                System.out.println("Utente trovato");
-                n = tipoUtente(nomeUtente);
-                codiceUtente = n[1];
-                tipoUtente = n[0];
-                
-            }
-            else {
-            System.out.println("Utente non trovato, riprova");
-            }
-        } catch (Exception e) {
-            System.out.println("Errore nella connessione del database");
+        
+        if (verificaUtentePassword(nomeUtente, password)) {
+            System.out.println("Utente trovato");
+            n = tipoUtente(nomeUtente);
+            codiceUtente = n[1];
+            tipoUtente = n[0];
+            this.nomeUtente = nomeUtente;
         }
-        
-        
-    }
+        else {
+        System.out.println("Utente non trovato, riprova");
+        }
+     }
     
-    public Login(String nomeUtente, String pass1, String pass2, String nome) {
-        try {
-            db = new DBConnection().connect();
-            creaNuovoUtente(nomeUtente, pass1, pass2, nome);
-            
-            }
-        catch (Exception e) {
-            System.out.println("Errore nella connessione del database");
-        }
-        
-        
-        
+    public Login(String nomeUtente, String pass1, String pass2, String nome, int tipoUtente, Connection db) {
+       
+        this.db = db;
+        creaNuovoUtente(nomeUtente, pass1, pass2, nome, tipoUtente);
     }
     
     
@@ -67,16 +57,18 @@ public class Login {
         boolean presenza = false;
         String sql = "select * from user where username=? and password=?";
         try {
-            PreparedStatement ps = db.prepareStatement(sql);
+            PreparedStatement ps = this.db.prepareStatement(sql);
             ps.setString(1, nomeUtente);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 presenza = true;
+                this.cognome = rs.getString("nome");
+                System.out.println(this.cognome);
             }
         }
         catch (Exception e) {
-            System.out.println("Errore nell'accesso del database");
+            System.out.println("Errore nell'accesso del database asd");
         }
         
         return presenza;
@@ -90,7 +82,7 @@ public class Login {
         
         try {
             String sql = ("SELECT * FROM user WHERE username = '" + nomeUtente + "'");
-            PreparedStatement ps = db.prepareStatement(sql);
+            PreparedStatement ps = this.db.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
     
             if(rs.next()) { 
@@ -110,7 +102,7 @@ public class Login {
         boolean presenza = false;
         String sql = "select * from user where username=?";
         try {
-            PreparedStatement ps = db.prepareStatement(sql);
+            PreparedStatement ps = this.db.prepareStatement(sql);
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -118,66 +110,66 @@ public class Login {
             }
         }
         catch (Exception e) {
-            System.out.println("Errore nell'accesso del database");
+            System.out.println("Errore nell'accesso del database, non trovo gli utenti");
         }
         return presenza;
     }
     
     
-    private void creaNuovoUtente(String nomeUtente, String pass1, String pass2, String nome) {
+    private void creaNuovoUtente(String nomeUtente, String pass1, String pass2, String nome,int tipoUtente) {
         
-        Connection conn; 
         try {
                 
             PreparedStatement preparedStmt;
             int n = calcoloCodiceUtente();
-            System.out.println(n);
+            System.out.println("Nome " + nomeUtente);
 
             if (pass1.equals(pass2)) {
-                if (!userPresente(nomeUtente)) {
-                String query = " insert into user (IDuser, username, password, nome, TypeUser)" + " values (?, ?, ?, ?, ?)";
-                preparedStmt = db.prepareStatement(query);
-                preparedStmt.setInt (1, n);
-                preparedStmt.setString (2, nomeUtente);
-                preparedStmt.setString   (3, pass1);
-                preparedStmt.setString(4, nome);
-                preparedStmt.setInt(5, 1);
-                preparedStmt.execute();
-                db.close();
-                System.out.println("Utente inserito correttamente!");
-                this.registrazioneEffettuata = true;
+                if (!userPresente(nomeUtente) && !nomeUtente.equalsIgnoreCase("")) {
+                    String query = " insert into user (IDuser, username, password, nome, TypeUser)" + " values (?, ?, ?, ?, ?)";
+                    preparedStmt = this.db.prepareStatement(query);
+                    preparedStmt.setInt (1, n);
+                    preparedStmt.setString (2, nomeUtente);
+                    preparedStmt.setString   (3, pass1);
+                    preparedStmt.setString(4, nome);
+                    preparedStmt.setInt(5, tipoUtente);
+                    preparedStmt.execute();
+                    System.out.println("Utente inserito correttamente!");
+                    this.registrazioneEffettuata = true;
+                    
                 }
                 else {
                 System.out.println("Nome non disponibile");
+               
                 }
         }
         else {
             System.out.println("Errore, le password non coincidono");
+           
         }
         }
         catch (Exception exc)  { 
-            System.out.println("Errore nella lettura del database");
+            System.out.println("Errore nella lettura del database, non riesco ad inserire l'utente");
             System.err.println(exc.getLocalizedMessage());
         }
         
     }
     
     private int calcoloCodiceUtente() {
-        int numero = 0;
+        int numero =0;
         try {
-            Connection userConn = new DBConnection().connect();
+            Connection userConn = this.db;
             PreparedStatement ps = userConn.prepareStatement("SELECT * FROM user");
             ResultSet rs = ps.executeQuery();
-            //rs.beforeFirst();
             while (rs.next()) {
-                System.out.println(rs.getInt("IDuser"));
-                numero++;
+                numero = rs.getInt("IDuser");
             }
         }
         catch (Exception e) {
-            System.out.println("Errore nell'accesso del database");
+            System.out.println("Errore nell'accesso del database, non sono riuscito a leggere il numero degli utenti");
         }
-        return NUMERO_UTENTE_BASE + numero;
+        numero ++;
+        return numero;
         
     }
     
@@ -191,6 +183,14 @@ public class Login {
     
     public boolean getRegistrazioneEffettuata() {
         return this.registrazioneEffettuata;
+    }
+    
+    public String getNomeUtente() {
+        return this.nomeUtente;
+    }
+    
+    public String getCognome() {
+        return this.cognome;
     }
       
     

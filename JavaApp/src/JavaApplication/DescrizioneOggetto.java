@@ -12,7 +12,7 @@ import java.sql.Statement;
 
 /**
  *
- * @author andre
+ * @author Toalgrim
  */
 public class DescrizioneOggetto {
     /* variabili */
@@ -49,6 +49,10 @@ public class DescrizioneOggetto {
     
     public void setDescrizioneOggetto(String descrizioneOggetto) {
         this.descrizioneOggetto = descrizioneOggetto;
+    }
+    
+    public String toString() {
+        return this.idOggetto + " - " + this.nomeOggetto;
     }
     
     public static String getDescrizione(int codice) throws SQLException { 

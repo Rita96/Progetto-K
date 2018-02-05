@@ -5,6 +5,7 @@
  */
 package Gui;
 
+
 import JavaApplication.Login;
 import javax.swing.JOptionPane;
 
@@ -268,13 +269,19 @@ public class LoginGui extends javax.swing.JFrame {
         // TODO add your handling code here:
         String nome = jNome.getText();
         String pass = jPassword.getText();
-        Login l1 = new Login(nome, pass);
+       /* Login l1 = new Login(nome, pass,db);
         if (l1.verificaUtentePassword(nome, pass)) {
             JOptionPane.showMessageDialog(this, "Login effettuato con successo " + l1.getTipoUtente() + " - " + l1.getCodiceUtente(), "Ok",  JOptionPane.PLAIN_MESSAGE);
+            if (l1.getTipoUtente() == 0) {
+               
+                //AdminGuiTest ag = new AdminGuiTest(l1);
+                //ag.setVisible(true);
+               // this.setVisible(false);
+            }
         }
         else {
             JOptionPane.showMessageDialog(this, "Errore, password o username non corretto!", "Errore", JOptionPane.ERROR_MESSAGE);
-        }
+        }*/
         
         
     }//GEN-LAST:event_JBottoneLoginActionPerformed
@@ -284,7 +291,7 @@ public class LoginGui extends javax.swing.JFrame {
         String pass = jPass.getText();
         String pass2 = jPasswordRepeat.getText();
         String cognome = jCognome.getText();
-        Login l1 = new Login(nomeUtente, pass, pass2, cognome);
+       /* Login l1 = new Login(nomeUtente, pass, pass2, cognome);
         if (l1.getRegistrazioneEffettuata()) {
             JOptionPane.showMessageDialog(this, "Registrazione effettuata con successo!", "Ok",  JOptionPane.PLAIN_MESSAGE);
             jNomeUtente.setText("");
@@ -303,7 +310,7 @@ public class LoginGui extends javax.swing.JFrame {
             
 
         }
-        
+ */       
         
         
                

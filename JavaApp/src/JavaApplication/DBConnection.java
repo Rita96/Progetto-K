@@ -15,6 +15,7 @@ import java.sql.SQLException;
  */
 public class DBConnection {
     private Connection DBConnection;
+    
      public Connection connect() {
          try {
              Class.forName("com.mysql.jdbc.Driver");
@@ -28,7 +29,7 @@ public class DBConnection {
              System.out.println("Database Connesso");       
          }
          catch (SQLException se) {
-             System.out.println("Errore nell'accesso al database");
+             System.out.println("Errore nell'accesso al database jkiop");
          }
          return DBConnection;
      } 

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package JavaApplication;
+
 import com.mysql.jdbc.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,26 +14,28 @@ import java.util.ArrayList;
  *
  * @author toalgrim
  */
-public class Banditore {
+public class Utente {
     
     private String nome;
     private int id;
     private String username;
-    private final static int TYPEUSER = 2;
+    private final static int TYPEUSER = 1;
     private Connection db;
     
-    public Banditore(String nome, int id, String username) {
+    
+    public Utente(String nome, int id, String username) {
         this.nome = nome;
         this.id = id;
         this.username = username;
     }
     
-    public static ArrayList creaListaBanditori(Connection db){
+    
+    public static ArrayList creaListaUtenti(Connection db){
         
         String nome;
         int id;
         String username;
-        ArrayList<Utente> listaBanditori = new ArrayList<>();
+        ArrayList<Utente> listaUtenti = new ArrayList<>();
         String sql = "select * from user where TypeUser=?";
         try {
             PreparedStatement ps = db.prepareStatement(sql);
@@ -43,19 +46,19 @@ public class Banditore {
                 username = rs.getString("username");
                 nome = rs.getString("nome");
                 Utente cl = new Utente(nome, id, username);
-                listaBanditori.add(cl);
+                listaUtenti.add(cl);
             }
         }
         catch (Exception e) {
             System.out.println("Errore nell'accesso del database");
         }
         
-        return listaBanditori;
+        return listaUtenti;
     }
     
-    public void stampaListaBanditori(ArrayList lb) {
-        for (int i=0; i<lb.size(); i++) {
-            System.out.println(lb.get(i));
+    public void stampaListaUtenti(ArrayList lu) {
+        for (int i=0; i<lu.size(); i++) {
+            System.out.println(lu.get(i));
         }
     }
     
@@ -68,13 +71,10 @@ public class Banditore {
         return this.id;
     }
     
-    public String getUsername() {
+    public String getUsername () {
         return this.username;
     }
     
-    public String getNome() {
-        return this.nome;
-    }
+ 
     
-   
 }

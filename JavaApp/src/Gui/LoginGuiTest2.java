@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package JavaApplication;
+package Gui;
 
+import JavaApplication.DBConnection;
+import Test.MainMenu;
 import com.mysql.jdbc.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import static JavaApplication.Register.stOgg;
+//import static JavaApplication.Register.stOgg;
 
 /**
  *
