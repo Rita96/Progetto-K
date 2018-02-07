@@ -9,6 +9,7 @@ import com.mysql.jdbc.Connection;
 import java.sql.*;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 
 /**
@@ -19,23 +20,16 @@ import java.text.SimpleDateFormat;
 public class Oggetto  {
     
     private int idOggetto;
-    static Connection conn; 
-    static Statement stOgg;
-    static PreparedStatement preparedStmt;
+    private Connection db;
+    private DescrizioneOggetto dogg;
+    private static final int ASTA_ATTIVA = 1;
     
      
-    /* Costruttore della classe oggetto, una volta chiamato prova ad aprire una connessione con il database*/
     
-    public Oggetto(int idOggetto) throws SQLException {
-        System.out.println("Provo a leggere il database...");
-        try {
-                Oggetto.conn = new DBConnection().connect();
-                Oggetto.stOgg = conn.createStatement();
-        }
-        catch (Exception exc)  { 
-            System.out.println("Errore nella lettura del database");
-        }
+    public Oggetto(int idOggetto, Connection db) throws SQLException {
         this.idOggetto = idOggetto;
+        this.db = db;
+        dogg = new DescrizioneOggetto(this.idOggetto, db);
 }
     /*Metodi Get e Set per l'Id dell'oggetto*/
     
@@ -47,7 +41,7 @@ public class Oggetto  {
     }
     
     /*Metodo per inserire un nuovo oggetto all'interno del database*/
-    public static void aggiungiOggetto(int i, int prezzoAsta, String nomeOgg, String descrizioneOgg, Date date, String time) throws SQLException {
+    public void aggiungiOggetto(int i, int prezzoAsta, String nomeOgg, String descrizioneOgg, Date date, String time) throws SQLException {
                
         java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
         java.sql.Time sqlTime = new java.sql.Time(System.currentTimeMillis());
@@ -69,41 +63,70 @@ public class Oggetto  {
         catch (Exception ex) {
             System.out.println("Errore inserimento data");
         }
-                
         // Inserisco nel database i dati ricevuti precedentemente da tastiera
         String query = " insert into Oggetti (IDoggetto, NomeOggetto, Descrizione, MaxOfferta, DataInizio, OraInizioAsta)" + " values (?, ?, ?, ?, ?, ?)";
-        preparedStmt = conn.prepareStatement(query);
-        preparedStmt.setInt (1, i);
-        preparedStmt.setString (2, nomeOgg);
-        preparedStmt.setString   (3, descrizioneOgg);
-        preparedStmt.setInt(4, prezzoAsta);
-        preparedStmt.setDate(5, sqlDate);
-        preparedStmt.setTime(6, sqlTime);
-        preparedStmt.execute();
-        conn.close();
+        try {
+            PreparedStatement ps = db.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                ps = db.prepareStatement(query);
+                ps.setInt (1, i);
+                ps.setString (2, nomeOgg);
+                ps.setString   (3, descrizioneOgg);
+                ps.setInt(4, prezzoAsta);
+                ps.setDate(5, sqlDate);
+                ps.setTime(6, sqlTime);
+                ps.execute();
+            }
+        } catch (Exception e) {
+            System.out.println("Errore, oggetto non trovato");
+        }
+        
     }
         
    
-    /* Conto il numero di insert che il database ha disponibili per creare il nuovo codice oggetto */
-    public static int trovaID() throws SQLException {
-        
-        /*da togliere il collegamento al database a programma concluso */
-        // Provo a collegarmi al database
-       try {
-                Oggetto.conn = new DBConnection().connect();
-                Oggetto.stOgg = conn.createStatement();
-        }
-        catch (Exception exc)  { 
-            System.out.println("Errore nella lettura del database");
-        }
-        
-        // Leggo il numero di righe e creo il codice ID per gli oggetti
-        ResultSet rs = stOgg.executeQuery ("SELECT * FROM Oggetti");
-        int i = 0;
+    /* Prendo l'ultimoi per creare il nuovo codice oggetto */
+    public int trovaID() throws SQLException {
+        PreparedStatement ps = db.prepareStatement("SELECT * FROM Oggetti");
+        ResultSet rs = ps.executeQuery();
+        int numero = 0;
         while (rs.next()) {
-           i++;
+           numero = rs.getInt("IDoggetto");
         }
-        i += 1001;
-        return i;
+        numero++;
+        return numero;
     } 
+    
+    @Override
+    public String toString() {
+        return this.idOggetto + " - " + this.dogg.getNomeOggetto();
+    }
+    
+    public static ArrayList creaListaOggetti(Connection db, String s){
+        int id;
+        ArrayList<Oggetto> listaOggetto = new ArrayList<>();
+        String sql = "SELECT * from Oggetti";
+        // String sql = "select * from Oggetti where AstaAttiva=?";
+        try {
+            PreparedStatement ps = db.prepareStatement(sql);
+            //ps.setInt(1, ASTA_ATTIVA);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                id = rs.getInt("IDoggetto");
+                Oggetto o1 = new Oggetto(id, db);
+                if (o1.dogg.getNomeOggetto().contains(s))
+                {
+                    listaOggetto.add(o1);
+                }
+                
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Errore nell'accesso del database");
+        }
+        
+        return listaOggetto;
+    }
+    
+    
 }

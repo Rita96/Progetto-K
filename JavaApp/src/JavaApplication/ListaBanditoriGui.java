@@ -64,13 +64,7 @@ public class ListaBanditoriGui extends JFrame{
         });
         
 
-        
-        /*jList1.setModel(new javax.swing.AbstractListModel<Cliente>() {
-            String[] strings = { };
-            public int getSize() { return listaUtenti.size(); }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);*/
+       
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

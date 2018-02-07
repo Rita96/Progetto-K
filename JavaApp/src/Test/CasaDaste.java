@@ -5,7 +5,7 @@
  */
 package Test;
 
-import Gui.LoginGuiTest2;
+import Old.LoginGuiTest2;
 
 /**
  *

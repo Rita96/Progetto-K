@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 /**
  *
@@ -26,8 +27,10 @@ public class BanditoreGui extends JFrame{
     private JButton jVisualizzaAste;
     private JButton jesci;
     private Connection db;
+    private Banditore b1;
     
     public BanditoreGui(Banditore b1, Connection db) {
+        this.b1 = b1;
         this.db = db;
         initComponents(b1);
         this.setVisible(true);
@@ -127,8 +130,9 @@ public class BanditoreGui extends JFrame{
         // TODO add your handling code here:
     }                                                
 
-    private void jVisualizzaAsteActionPerformed(ActionEvent evt) {                                                
-        // TODO add your handling code here:
+    private void jVisualizzaAsteActionPerformed(ActionEvent evt) {  
+        ArrayList<Oggetto> listaOggetti = Oggetto.creaListaOggetti(db, "");
+        ListaOggettiGui log = new ListaOggettiGui(db, listaOggetti, b1);
     }                                               
 
     private void jesciActionPerformed(ActionEvent evt) {                                      

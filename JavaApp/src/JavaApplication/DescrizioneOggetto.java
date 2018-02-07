@@ -6,9 +6,9 @@
 package JavaApplication;
 
 import com.mysql.jdbc.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  *
@@ -17,12 +17,36 @@ import java.sql.Statement;
 public class DescrizioneOggetto {
     /* variabili */
     private int idOggetto, maxOfferta, idUser, oggettoAttivo;
-    private String nomeOggetto, descrizioneOggetto, dataInizioAsta, oraInizioAsta;
+    private String nomeOggetto, descrizioneOggetto, dataInizioAsta, oraInizioAsta, oraFineAsta, dataFineAsta;
+    private Connection db;
 
     
     
     /* Costruttore pubblico */
-    public DescrizioneOggetto() {
+    public DescrizioneOggetto(int codice, Connection db) {
+        this.db = db;
+        String sql = ("SELECT * FROM Oggetti WHERE IDoggetto = '" + codice + "'");
+        try {
+            PreparedStatement ps = db.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                this.idOggetto = codice;
+                this.maxOfferta = rs.getInt("MAXofferta");
+                this.idUser = rs.getInt("IDuser");
+                this.oggettoAttivo = rs.getInt("AstaAttiva");
+                this.nomeOggetto = rs.getString("NomeOggetto");
+                this.descrizioneOggetto = rs.getString("Descrizione");
+                this.dataInizioAsta = rs.getString("DataInizioAsta");
+                this.oraInizioAsta = rs.getString("OraInizioAsta");
+                this.oraFineAsta = rs.getString("OraFineAsta");
+                this.dataFineAsta = rs.getString("DataFineAsta");
+            }
+        } catch (Exception e) {
+            System.out.println("Errore, oggetto non trovato");
+        }
+
+    
+        
 }
     /* Metodi getter e setter */
      
@@ -55,87 +79,43 @@ public class DescrizioneOggetto {
         return this.idOggetto + " - " + this.nomeOggetto;
     }
     
-    public static String getDescrizione(int codice) throws SQLException { 
-        
-    String str1 = null;
-    String sql = ("SELECT * FROM Oggetti WHERE IDoggetto = '" + codice + "'");
-    ResultSet rs = Oggetto.stOgg.executeQuery(sql);
-    
-    if(rs.next()) { 
-        str1 = rs.getString("Descrizione");
+    public String getDescrizione() throws SQLException {
+        return this.descrizioneOggetto;
     }
 
-    return str1;
-    
+    public String getNomeOggetto() { 
+        return this.nomeOggetto;
     }
 
-    public static String getNomeOggetto(int codice) throws SQLException { 
-        
-    String str1 = null;
-    String sql = ("SELECT * FROM Oggetti WHERE IDoggetto = '" + codice + "'");
-    ResultSet rs = Oggetto.stOgg.executeQuery(sql);
-    
-    if(rs.next()) { 
-        str1 = rs.getString("NomeOggetto");
-    }
-    
-    return str1;
-    
+    public int getOggettoAttivo() { 
+        return this.oggettoAttivo;
     }
 
-    public static String getOggettoAttivo(int codice) throws SQLException { 
-        
-    String sql = ("SELECT * FROM Oggetti WHERE IDoggetto = '" + codice + "'");
-    ResultSet rs = Oggetto.stOgg.executeQuery(sql);
-    String str1 = null;
-    
-    if(rs.next()) { 
-        str1 = rs.getString("AstaAttiva");
-        System.out.println(str1);
-    }
-    
-    return str1;
-    
+    public int getidUser() { 
+        return this.idUser;
     }
 
-    public static String getidUser(int codice) throws SQLException { 
-    
-    String sql = ("SELECT * FROM Oggetti WHERE IDoggetto = '" + codice + "'");
-    ResultSet rs = Oggetto.stOgg.executeQuery(sql);
-    String str1 = null;
-    if(rs.next()) { 
-        str1 = rs.getString("IDuser");
-    }
-    return str1;
-
-    
-    }
-
-    public static String getMaxofferta(int codice) throws SQLException { 
-    
-    String sql = ("SELECT * FROM Oggetti WHERE IDoggetto = '" + codice + "'");
-    ResultSet rs = Oggetto.stOgg.executeQuery(sql);
-    String str1 = null;
-    
-    if(rs.next()) { 
-        str1 = rs.getString("MAXofferta");
-    }
-    return str1;
+    public int getMaxofferta(){ 
+        return this.maxOfferta;
     }
     
-    public static String getDataInizioAsta (int codice) throws SQLException {
-        
-        String sql = ("SELECT * FROM Oggetti WHERE IDoggetto = '" + codice + "'");
-        ResultSet rs = Oggetto.stOgg.executeQuery(sql);
-        String str1 = null;
-        
-        if(rs.next()) { 
-        str1 = rs.getString("DataInizio");
-        }
-        
-    return str1;
+    public String getDataInizioAsta (){
+        return this.dataInizioAsta;
     }
     
+    public String getOraInizioAsta (){
+        return this.oraInizioAsta;
+    }
+    
+    public String getOraFineAsta() {
+        return this.oraFineAsta;
+    }
+    
+    public String getDataFineAsta()  {
+        return this.dataFineAsta;
+    }
+    
+    /*  mertodi get db
     public static String getOraInizioAsta (int codice) throws SQLException {
         String sql = ("SELECT * FROM Oggetti WHERE IDoggetto = '" + codice + "'");
         ResultSet rs = Oggetto.stOgg.executeQuery(sql);
@@ -147,6 +127,8 @@ public class DescrizioneOggetto {
         
     return str1;
     }
+    */
+    
 
 
 

@@ -32,9 +32,12 @@ import java.util.ArrayList;
     private JButton jRimuoviUtente;
     private JLabel jSaluto;
     private Connection db;
+    private Admin a1;
+   
     
     public AdminGui(Admin a1, Connection db) {
         this.db = db;
+        this.a1 = a1;
         initComponents(a1);
         this.setVisible(true);
     }
@@ -207,7 +210,8 @@ import java.util.ArrayList;
     }                                                  
 
     private void jModificaAstaActionPerformed(ActionEvent evt) {                                              
-        // TODO add your handling code here:
+        ArrayList<Oggetto> listaOggetto = Oggetto.creaListaOggetti(db,"");
+        ListaOggettiGui log = new ListaOggettiGui(db, listaOggetto, a1);
     }                                             
 
     private void jLogoutActionPerformed(ActionEvent evt) {                                        
@@ -216,7 +220,7 @@ import java.util.ArrayList;
     }                                       
 
     private void jAggiungiUtenteActionPerformed(ActionEvent evt) {                                                
-        FormRegistrazione fg = new FormRegistrazione(1, db);
+        FormRegistrazioneGui fg = new FormRegistrazioneGui(1, db);
     }                                               
 
     private void jRimuoviUtenteActionPerformed(ActionEvent evt) {    
@@ -229,7 +233,7 @@ import java.util.ArrayList;
     }                                            
 
     private void jAggiungiBanditoreActionPerformed(ActionEvent evt) {                                                  
-        FormRegistrazione fg = new FormRegistrazione(2, db);
+        FormRegistrazioneGui fg = new FormRegistrazioneGui(2, db);
 
     }                                                 
 }

@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package JavaApplication;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import com.mysql.jdbc.Connection;
 
 

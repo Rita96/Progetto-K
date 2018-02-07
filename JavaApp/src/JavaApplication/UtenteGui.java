@@ -6,6 +6,7 @@
 package JavaApplication;
 
 import com.mysql.jdbc.Connection;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 
 /**
@@ -20,8 +21,10 @@ public class UtenteGui extends JFrame{
     private javax.swing.JButton jVisualizzaAste;
     private javax.swing.JButton jesci;
     private Connection db;
+    private Utente u1;
     
     public UtenteGui(Connection db, Utente u1) {
+        this.u1 = u1;
         this.db = db;
         initComponents(u1);
         this.setVisible(true);
@@ -119,7 +122,8 @@ public class UtenteGui extends JFrame{
     }                                             
 
     private void jVisualizzaAsteActionPerformed(java.awt.event.ActionEvent evt) {                                                
-        // TODO add your handling code here:
+        ArrayList<Oggetto> listaOggetti = Oggetto.creaListaOggetti(db, "");
+        ListaOggettiGui log = new ListaOggettiGui(db, listaOggetti, u1);
     }                                               
 
     private void jesciActionPerformed(java.awt.event.ActionEvent evt) {                                      

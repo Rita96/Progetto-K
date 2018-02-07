@@ -16,7 +16,7 @@ import javax.swing.JFrame;
  *
  * @author toalgrim
  */
-public class FormRegistrazione extends JFrame{
+public class FormRegistrazioneGui extends JFrame{
     
     private JButton jBottoneRegistrazione;
     private JTextField jCognome;
@@ -34,7 +34,7 @@ public class FormRegistrazione extends JFrame{
     
     
     
-    public FormRegistrazione(int numeroTipoUtente, Connection db) {
+    public FormRegistrazioneGui(int numeroTipoUtente, Connection db) {
         this.db = db;
         this.numeroTipoUtente = numeroTipoUtente;
         initComponents();

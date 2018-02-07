@@ -157,7 +157,7 @@ public class LoginGui extends JFrame {
      }
      
      private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) { 
-         FormRegistrazione fr = new FormRegistrazione(1, db);
+         FormRegistrazioneGui fr = new FormRegistrazioneGui(1, db);
     }   
      
      

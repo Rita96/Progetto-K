@@ -5,7 +5,7 @@
  */
 package Test;
 
-import JavaApplication.Register;
+import Old.Register;
 import java.sql.*;
 
 /**

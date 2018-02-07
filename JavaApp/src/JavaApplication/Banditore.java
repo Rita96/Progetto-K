@@ -32,7 +32,7 @@ public class Banditore {
         String nome;
         int id;
         String username;
-        ArrayList<Utente> listaBanditori = new ArrayList<>();
+        ArrayList<Banditore> listaBanditori = new ArrayList<>();
         String sql = "select * from user where TypeUser=?";
         try {
             PreparedStatement ps = db.prepareStatement(sql);
@@ -42,7 +42,7 @@ public class Banditore {
                 id = rs.getInt("IDuser");
                 username = rs.getString("username");
                 nome = rs.getString("nome");
-                Utente cl = new Utente(nome, id, username);
+                Banditore cl = new Banditore(nome, id, username);
                 listaBanditori.add(cl);
             }
         }

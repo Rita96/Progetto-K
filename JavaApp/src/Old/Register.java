@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package JavaApplication;
+package Old;
 
+import JavaApplication.DBConnection;
 import com.mysql.jdbc.Connection;
 import java.util.Scanner;
 import java.sql.*;
